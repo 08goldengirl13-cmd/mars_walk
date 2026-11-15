@@ -1,0 +1,26 @@
+name: mars_walk
+description: "Mars Walk — replay NASA Curiosity's real 38 km route in Gale Crater, climb the rock layers of Mount Sharp and plan your own Mars walk. NASA Space Apps Challenge project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.14.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  material_ui: ^1.1.0
+  flutter_map: ^8.3.2
+  latlong2: ^0.10.1
+  url_launcher: ^6.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/

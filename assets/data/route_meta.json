@@ -1,0 +1,11 @@
+{
+  "source": "NASA/JPL-Caltech MSL waypoints (MMGIS)",
+  "downloaded": "2026-11-14",
+  "pointCount": 1369,
+  "firstSol": 3,
+  "lastSol": 5073,
+  "minElevM": -4521.31,
+  "maxElevM": -3472.09,
+  "elevRangeM": 1049.2,
+  "totalKm": 38.638
+}
