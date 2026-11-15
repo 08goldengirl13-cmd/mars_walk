@@ -53,8 +53,8 @@ _Name 1_, _Name 2_, _Name 3_.
 
 ## Links
 
-- Live demo: _add link_
-- GitHub: _add link_
+- Live demo: https://08goldengirl13-cmd.github.io/mars_walk/
+- GitHub: https://github.com/08goldengirl13-cmd/mars_walk
 - Video (30 s): _add link_
 
 ## Credits and sources

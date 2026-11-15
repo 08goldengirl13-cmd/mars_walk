@@ -6,7 +6,7 @@ You are the first human on Mars. NASA's Curiosity rover has already walked this 
 
 Made for young people (about 10–17) and anyone curious about Mars. Short sentences, big buttons, English and Uzbek.
 
-**Live demo:** _add the GitHub Pages link here after the first deploy_ (`https://<your-user>.github.io/<repo-name>/`)
+**Live demo:** https://08goldengirl13-cmd.github.io/mars_walk/
 
 ## Screenshots
 
