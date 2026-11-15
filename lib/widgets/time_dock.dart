@@ -129,7 +129,8 @@ class _SpeedButton extends StatelessWidget {
         ),
         onPressed: () => playback.setSpeed(speeds[(i + 1) % speeds.length]),
         child: Text(
-          '${playback.speed.toStringAsFixed(0)}×',
+          // 0.5× keeps its decimal; whole speeds show as 1×, 2×, 4×.
+          '${playback.speed == playback.speed.roundToDouble() ? playback.speed.toStringAsFixed(0) : playback.speed}×',
           style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
         ),
       ),

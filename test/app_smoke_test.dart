@@ -84,7 +84,8 @@ void main() {
     // Play to the end so the fun-fact line shows.
     await tester.tap(find.byTooltip('Boshlash'));
     await tester.pump();
-    for (var i = 0; i < 320; i++) {
+    // Default speed 0.5×: the whole route takes 90 s.
+    for (var i = 0; i < 920; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
     expect(find.textContaining('marafon'), findsOneWidget);

@@ -15,7 +15,7 @@ Then run the app: `flutter run -d chrome` (add `?nointro` to the URL to skip the
 | 1 | App starts in Chrome | Dark "mission control" screen; intro slides appear | ☐ |
 | 2 | Map tiles | Viking colour base + sharp grey HiRISE close-up around the route. Zoom in/out with wheel or pinch. Areas without HiRISE show the Viking map — no error messages | ☐ |
 | 3 | Alignment | At Sol 3 the astronaut is at stop 1 (Bradbury Landing) at the top of the route. Press Play to the end: the astronaut ends at stop 6 on the mountain side. The amber line follows visible terrain (it crosses the dark dune band at a narrow gap) | ☐ |
-| 4 | Time Machine | Play runs about 30 s at 1× (≈15 s at 2×, ≈7.5 s at 4×). Slider scrubbing moves the astronaut. Sol, km, elevation and tilt chips change. Elevation profile fills in amber. At the end a fun-fact line appears | ☐ |
+| 4 | Time Machine | Speed starts at 0.5×: Play runs about 90 s (≈45 s at 1×, ≈22 s at 2×, ≈11 s at 4×). Slider scrubbing moves the astronaut. Sol, km, elevation and tilt chips change. Elevation profile fills in amber. At the end a fun-fact line appears | ☐ |
 | 5 | Layers + era scene | While playing, the highlighted rock layer moves up and the era scene cross-fades: lake → shrinking lake → dusty ridge → clay → dry desert. "Artist's concept" label is visible | ☐ |
 | 6 | Mission mode | Mission → Start mission → 5 cards. Try every option type (go, halfway, study, ask Earth). Each result shows verdict, oxygen and energy bars, radiation, "What NASA actually did". End screen shows score and badges. "Copy my result" puts text in the clipboard | ☐ |
 | 7 | Language | EN ⇄ UZ changes every visible text, including the mission, layers sheet, Sources screen and intro. No raw keys like `chipSol` | ☐ |

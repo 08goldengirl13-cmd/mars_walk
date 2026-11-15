@@ -1,4 +1,4 @@
-# Mars Walk — walk 38 km on Mars in 30 seconds
+# Mars Walk — walk 38 km on Mars in 90 seconds
 
 **NASA Space Apps Challenge · Challenge #10 "Interplanetary Survival Guide: Martian Map"**
 
@@ -14,7 +14,7 @@ _Add after the first run._
 
 ## Features
 
-- **Time Machine** — press Play and the astronaut follows Curiosity's real route (1,369 NASA waypoints) in about 30 seconds. Drag the Sol slider to any Mars day. Live chips show sol, distance, elevation and terrain tilt; a mini elevation profile grows as you climb.
+- **Time Machine** — press Play and the astronaut follows Curiosity's real route (1,369 NASA waypoints) in 90 seconds at the default 0.5× speed (45 s at 1×). Drag the Sol slider to any Mars day. Live chips show sol, distance, elevation and terrain tilt; a mini elevation profile grows as you climb.
 - **Climb through the layers** — a rock-layer column of Mount Sharp. The astronaut rises with the real elevation. Each layer has a short card ("Ancient lake floor", "Clay-rich layer", …) and an animated "Mars at that time" scene that cross-fades from lake to streams to dry, dusty desert. Clearly labelled as an artist's concept.
 - **Mars today at Gale** — approximate modern temperature, pressure, radiation and gravity.
 - **Mission mode** — 5 decision cards on real stops (Yellowknife Bay, Pahrump Hills, Bagnold Dunes, Glen Torridon, Curiosity's latest position). Go, walk halfway, study here or ask Earth. The result (Safe / Risky / Too far, oxygen, energy, radiation) is computed from the real leg, then "What NASA actually did here" is shown. Score, badges and "Copy my result".

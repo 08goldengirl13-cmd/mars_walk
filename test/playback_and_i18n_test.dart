@@ -8,18 +8,31 @@ import 'package:mars_walk/logic/playback_controller.dart';
 
 void main() {
   group('PlaybackController', () {
-    test('full route takes 30 s at 1×, 7.5 s at 4×', () {
+    test('starts at 0.5×: the full route takes 90 s', () {
       final p = PlaybackController(RouteData.demo());
-      p.advanceBy(15);
+      expect(p.speed, 0.5);
+      expect(PlaybackController.speeds.first, 0.5);
+      p.advanceBy(45);
       expect(p.progress, closeTo(0.5, 1e-9));
-      p.advanceBy(15);
+      p.advanceBy(44);
+      expect(p.reachedEnd, isFalse);
+      p.advanceBy(1);
+      expect(p.progress, 1);
+      p.dispose();
+    });
+
+    test('full route takes 45 s at 1×, 11.25 s at 4×', () {
+      final p = PlaybackController(RouteData.demo())..setSpeed(1);
+      p.advanceBy(22.5);
+      expect(p.progress, closeTo(0.5, 1e-9));
+      p.advanceBy(22.5);
       expect(p.progress, 1);
       expect(p.reachedEnd, isTrue);
       expect(p.isPlaying, isFalse);
 
       p.seek(0);
       p.setSpeed(4);
-      p.advanceBy(7.5);
+      p.advanceBy(11.25);
       expect(p.progress, 1);
       p.dispose();
     });

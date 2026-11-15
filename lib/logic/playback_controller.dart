@@ -13,12 +13,16 @@ class PlaybackController extends ChangeNotifier {
 
   final RouteData route;
 
-  static const double journeySeconds = 30.0;
-  static const List<double> speeds = [1, 2, 4];
+  static const double journeySeconds = 45.0;
+
+  /// Speed button cycles through these; the first one is the default.
+  /// At 0.5× the whole route takes 90 s (45 s at 1×).
+  static const List<double> speeds = [0.5, 1, 2, 4];
+  static const double defaultSpeed = 0.5;
 
   double _position = 0;
   bool _isPlaying = false;
-  double _speed = 1;
+  double _speed = defaultSpeed;
   bool _reachedEnd = false;
 
   Ticker? _ticker;

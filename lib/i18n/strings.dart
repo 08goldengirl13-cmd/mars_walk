@@ -50,7 +50,7 @@ class S {
 
 const Map<String, String> _en = {
   'appTitle': 'Mars Walk',
-  'appSubtitle': 'Walk {km} km on Mars in 30 seconds',
+  'appSubtitle': 'Walk {km} km on Mars in 90 seconds',
   'loading': 'Loading NASA route data…',
   'btnMission': 'Mission',
   'btnLayers': 'Map layers',
@@ -193,7 +193,7 @@ const Map<String, String> _en = {
 
 const Map<String, String> _uz = {
   'appTitle': 'Mars Walk',
-  'appSubtitle': "Marsda {km} km yo‘lni 30 soniyada bosib o‘ting",
+  'appSubtitle': "Marsda {km} km yo‘lni 90 soniyada bosib o‘ting",
   'loading': "NASA yo‘l ma’lumotlari yuklanmoqda…",
   'btnMission': 'Missiya',
   'btnLayers': 'Xarita qatlamlari',

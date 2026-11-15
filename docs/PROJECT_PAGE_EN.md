@@ -2,7 +2,7 @@
 
 ## Summary
 
-Mars Walk lets anyone walk NASA Curiosity's real 38.6 km route across Gale Crater in 30 seconds. You climb Mount Sharp through its ancient rock layers while the scene shows Mars changing from a lake world to a dry desert. Then you plan your own walks, and the real distance, slope and climb from NASA data decide if you make it back safely.
+Mars Walk lets anyone walk NASA Curiosity's real 38.6 km route across Gale Crater in 90 seconds. You climb Mount Sharp through its ancient rock layers while the scene shows Mars changing from a lake world to a dry desert. Then you plan your own walks, and the real distance, slope and climb from NASA data decide if you make it back safely.
 
 ## The problem
 

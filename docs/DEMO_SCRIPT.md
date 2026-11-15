@@ -1,7 +1,7 @@
 # 30-second demo video script
 
 Record in Chrome at 1440 × 900. Open the app with the intro (no `?nointro`) for the first
-shot, then reload with `?nointro` for the rest. Set speed to 1× before pressing Play.
+shot, then reload with `?nointro` for the rest. Set speed to 2× before pressing Play (about 22 s for the whole route).
 
 | Time | Visual | Voice-over / on-screen text |
 |---|---|---|
@@ -12,14 +12,14 @@ shot, then reload with `?nointro` for the rest. Set speed to 1× before pressing
 | 28–30 s | Title card: "Mars Walk · NASA Space Apps" | — |
 
 Tips:
-- At 1× Play takes about 30 s. For the 10-second shot, start recording, press Play, and
-  cut; or use 4× (≈7.5 s for the whole route).
+- At 2× Play takes about 22 s (90 s at the default 0.5×, 45 s at 1×). For the 10-second shot, start recording, press Play, and
+  cut; or use 4× (≈11 s for the whole route).
 - If the voice-over is not in English, add English subtitles (mandatory).
 - Toggle UZ for one second at the end if you want to show the bilingual feature.
 
 # Slide outline (max 7 slides, alternative to the video)
 
-1. **Title** — Mars Walk: walk 38 km on Mars in 30 seconds. Team names. NASA Space Apps, Challenge #10.
+1. **Title** — Mars Walk: walk 38 km on Mars in 90 seconds. Team names. NASA Space Apps, Challenge #10.
 2. **Problem** — Mars feels far and complicated; NASA data is made for experts.
 3. **Solution** — Three experiences on one map: Time Machine, Climb through the layers, Mission mode.
 4. **NASA data behind it** — Mars Trek tiles (Viking, MOLA, HiRISE, CTX); MSL waypoints: 1,369 points, sol 3 → 5073, 38.6 km, −4521 m → −3472 m; Moon to Mars objective codes.
