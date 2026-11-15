@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -52,6 +53,22 @@ class MarsMap extends StatefulWidget {
 
 class _MarsMapState extends State<MarsMap> {
   static const double _followZoom = 13.0;
+
+  /// Zoom limits. At z10 the whole route still fits on a phone and a
+  /// desktop map shows about the whole HiRISE mosaic; the bundled tiles
+  /// reach z13 and HiRISE itself z16, so z15 is still sharp.
+  static const double _minZoom = 10;
+  static const double _maxZoom = 15;
+
+  /// Margin (degrees) around the route that the map centre may reach.
+  static const double _panMargin = 0.05;
+
+  /// The map centre must stay over Curiosity's route (plus a small margin),
+  /// so you cannot drag off into empty Mars.
+  late final LatLngBounds _panBounds = LatLngBounds(
+    LatLng(widget.route.minLat - _panMargin, widget.route.minLon - _panMargin),
+    LatLng(widget.route.maxLat + _panMargin, widget.route.maxLon + _panMargin),
+  );
 
   final MapController _map = MapController();
   late final List<LatLng> _all;
@@ -137,55 +154,75 @@ class _MarsMapState extends State<MarsMap> {
     }
   }
 
+  /// [_minZoom], or lower when the map is too small (phones) for the whole
+  /// route to fit at that zoom — you can always zoom out to see all of it.
+  double _minZoomFor(Size size) {
+    final r = widget.route;
+    final pad = widget.uiPadding + const EdgeInsets.all(24);
+    final w = size.width - pad.horizontal;
+    final h = size.height - pad.vertical;
+    if (!w.isFinite || !h.isFinite || w <= 0 || h <= 0) return _minZoom;
+    // Epsg4326: 256 px per 180° at zoom 0, doubling each zoom.
+    const pxPerDegZ0 = 256 / 180;
+    final lonSpan = math.max(1e-6, r.maxLon - r.minLon);
+    final latSpan = math.max(1e-6, r.maxLat - r.minLat);
+    final fit = math.min(w / (lonSpan * pxPerDegZ0), h / (latSpan * pxPerDegZ0));
+    final fitZoom = math.log(fit) / math.ln2;
+    return math.min(_minZoom, fitZoom - 0.1);
+  }
+
   @override
   Widget build(BuildContext context) {
     final r = widget.route;
     return Stack(
       children: [
-        ListenableBuilder(
-          listenable: widget.settings,
-          builder: (context, _) => FlutterMap(
-            mapController: _map,
-            options: MapOptions(
-              crs: const Epsg4326(),
-              // Start on the route even before the bounds fit runs, so the
-              // first tile requests are not for flutter_map's default spot
-              // (Europe), which only queues behind the real tiles.
-              initialCenter: LatLng((r.minLat + r.maxLat) / 2, (r.minLon + r.maxLon) / 2),
-              initialZoom: 12,
-              initialCameraFit: CameraFit.bounds(
-                bounds: LatLngBounds(LatLng(r.minLat, r.minLon), LatLng(r.maxLat, r.maxLon)),
-                padding: widget.uiPadding + const EdgeInsets.all(24),
-              ),
-              minZoom: 3,
-              maxZoom: 17,
-              backgroundColor: AppColors.background,
-              onMapReady: _onMapReady,
-              interactionOptions: const InteractionOptions(
-                flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
-              ),
-            ),
-            children: [
-              if (widget.settings.networkTiles) ..._tileLayers(),
-              ListenableBuilder(
-                listenable: widget.playback,
-                builder: (context, _) => PolylineLayer(polylines: _routeLines()),
-              ),
-              MarkerLayer(markers: _stopMarkers()),
-              ListenableBuilder(
-                listenable: Listenable.merge([widget.playback, widget.settings]),
-                builder: (context, _) => MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: _astronaut,
-                      width: 56,
-                      height: 56,
-                      child: IgnorePointer(child: AstronautMarker(pulse: !widget.settings.calm)),
-                    ),
-                  ],
+        LayoutBuilder(
+          builder: (context, size) => ListenableBuilder(
+            listenable: widget.settings,
+            builder: (context, _) => FlutterMap(
+              mapController: _map,
+              options: MapOptions(
+                crs: const Epsg4326(),
+                // Start on the route even before the bounds fit runs, so the
+                // first tile requests are not for flutter_map's default spot
+                // (Europe), which only queues behind the real tiles.
+                initialCenter: LatLng((r.minLat + r.maxLat) / 2, (r.minLon + r.maxLon) / 2),
+                initialZoom: 12,
+                initialCameraFit: CameraFit.bounds(
+                  bounds: LatLngBounds(LatLng(r.minLat, r.minLon), LatLng(r.maxLat, r.maxLon)),
+                  padding: widget.uiPadding + const EdgeInsets.all(24),
+                ),
+                minZoom: _minZoomFor(size.biggest),
+                maxZoom: _maxZoom,
+                cameraConstraint: CameraConstraint.containCenter(bounds: _panBounds),
+                backgroundColor: AppColors.background,
+                onMapReady: _onMapReady,
+                interactionOptions: const InteractionOptions(
+                  flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                 ),
               ),
-            ],
+              children: [
+                if (widget.settings.networkTiles) ..._tileLayers(),
+                ListenableBuilder(
+                  listenable: widget.playback,
+                  builder: (context, _) => PolylineLayer(polylines: _routeLines()),
+                ),
+                MarkerLayer(markers: _stopMarkers()),
+                ListenableBuilder(
+                  listenable: Listenable.merge([widget.playback, widget.settings]),
+                  builder: (context, _) => MarkerLayer(
+                    markers: [
+                      Marker(
+                        point: _astronaut,
+                        width: 56,
+                        height: 56,
+                        child: IgnorePointer(child: AstronautMarker(pulse: !widget.settings.calm)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Positioned(

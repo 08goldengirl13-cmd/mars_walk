@@ -37,6 +37,16 @@ void main() {
       p.dispose();
     });
 
+    test('slow frames keep real-time speed; hidden-tab gaps are skipped', () {
+      expect(PlaybackController.frameAdvance(0.016), 0.016);
+      // A busy device at 3 fps must not slow the journey down.
+      expect(PlaybackController.frameAdvance(0.33), 0.33);
+      expect(PlaybackController.frameAdvance(1.0), 1.0);
+      // The tab was hidden for 5 s: do not jump ahead.
+      expect(PlaybackController.frameAdvance(5.0), 0);
+      expect(PlaybackController.frameAdvance(-0.1), 0);
+    });
+
     test('jumpToSol uses the first waypoint at or after the sol', () {
       final p = PlaybackController(RouteData.demo());
       p.jumpToSol(55); // demo sols are 0, 10, 20 …

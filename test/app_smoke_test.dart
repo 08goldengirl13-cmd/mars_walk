@@ -34,7 +34,10 @@ void main() {
 
     await tester.tap(find.byTooltip('Play'));
     await tester.pump();
-    await tester.pump(const Duration(seconds: 2));
+    // 2 s of real frames (one 2 s frame would count as a hidden tab).
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(find.text('Sol ${route.first.sol}'), findsNothing);
     await tester.tap(find.byTooltip('Pause'));
     await tester.pump();

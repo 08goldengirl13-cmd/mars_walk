@@ -105,12 +105,19 @@ class PlaybackController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Longest frame gap still counted as playing time. Slow frames (a busy
+  /// phone, the map decoding many tiles) keep real-time speed; a longer gap
+  /// means the tab was hidden, and that time is skipped.
+  static const double maxFrameGapSeconds = 1.0;
+
   void _onTick(Duration elapsed) {
     final dt = (elapsed - _lastTick).inMicroseconds / 1e6;
     _lastTick = elapsed;
-    // Ignore huge gaps (e.g. the browser tab was hidden).
-    advanceBy(dt.clamp(0.0, 0.1));
+    advanceBy(frameAdvance(dt));
   }
+
+  /// Seconds of playback for a frame that took [dt] seconds. Public for tests.
+  static double frameAdvance(double dt) => (dt <= 0 || dt > maxFrameGapSeconds) ? 0 : dt;
 
   @override
   void dispose() {
