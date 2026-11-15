@@ -1,0 +1,22 @@
+{
+  // Run / F5 always starts Mars Walk (lib/main.dart in the project root),
+  // never the leftover counter template in flutter_application_1/.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Mars Walk",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "lib/main.dart"
+    },
+    {
+      "name": "Mars Walk (Chrome)",
+      "type": "dart",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "lib/main.dart",
+      "deviceId": "chrome"
+    }
+  ]
+}
