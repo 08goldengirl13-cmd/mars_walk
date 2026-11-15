@@ -36,10 +36,10 @@ dart run tool/download_tiles.dart            # downloads only what is missing
 dart run tool/download_tiles.dart --dry-run  # just count the tiles
 ```
 
-- Viking and MOLA: z3–z7 over Gale Crater (20 tiles each).
-- HiRISE: z9–z11 over the whole mosaic, z12–z13 in a band along the route
+- Viking and MOLA: z3–z7 over Gale Crater and its surroundings, −10…0° lat, 129…144.5° lon (136 tiles each).
+- HiRISE: z7–z11 over the whole mosaic, z12–z13 in a band along the route
   (the camera follows the astronaut at z13 while playing).
-- Snapshot 2026-11-15: 392 images, 19.4 MB in `assets/tiles/`; 80 HiRISE tiles
+- Snapshot 2026-11-15: 627 images, 33.3 MB in `assets/tiles/`; 90 HiRISE tiles
   have no image on the server (404) and are drawn transparent without asking.
 - The list lives in the generated `lib/map/bundled_tiles.g.dart`;
   `test/bundled_tiles_test.dart` checks every listed file exists.

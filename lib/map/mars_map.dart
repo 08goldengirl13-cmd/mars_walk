@@ -54,20 +54,30 @@ class MarsMap extends StatefulWidget {
 class _MarsMapState extends State<MarsMap> {
   static const double _followZoom = 13.0;
 
-  /// Zoom limits. At z10 the whole route still fits on a phone and a
-  /// desktop map shows about the whole HiRISE mosaic; the bundled tiles
-  /// reach z13 and HiRISE itself z16, so z15 is still sharp.
-  static const double _minZoom = 10;
+  /// Zoom limits. At z7 the whole of Gale Crater (about 154 km across) and
+  /// its rim fit on screen, on desktop and phone (bundled Viking/MOLA tiles);
+  /// the bundled HiRISE tiles reach z13 and HiRISE itself z16, so z15 is
+  /// still sharp.
+  static const double _minZoom = 7;
   static const double _maxZoom = 15;
 
-  /// Margin (degrees) around the route that the map centre may reach.
-  static const double _panMargin = 0.05;
+  /// Gale Crater (centre ≈ −5.4°, 137.8°) plus a margin. The map centre
+  /// may move anywhere over the crater, but not off into empty Mars.
+  static final LatLngBounds _galeBounds = LatLngBounds(
+    const LatLng(-7.0, 135.8),
+    const LatLng(-3.0, 139.8),
+  );
 
-  /// The map centre must stay over Curiosity's route (plus a small margin),
-  /// so you cannot drag off into empty Mars.
+  /// The crater, widened if needed so it always contains the whole route.
   late final LatLngBounds _panBounds = LatLngBounds(
-    LatLng(widget.route.minLat - _panMargin, widget.route.minLon - _panMargin),
-    LatLng(widget.route.maxLat + _panMargin, widget.route.maxLon + _panMargin),
+    LatLng(
+      math.min(_galeBounds.south, widget.route.minLat),
+      math.min(_galeBounds.west, widget.route.minLon),
+    ),
+    LatLng(
+      math.max(_galeBounds.north, widget.route.maxLat),
+      math.max(_galeBounds.east, widget.route.maxLon),
+    ),
   );
 
   final MapController _map = MapController();

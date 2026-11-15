@@ -33,8 +33,11 @@ class LayerSpec {
   final Map<int, List<int>> corridor;
 }
 
-/// Gale Crater area used for the global base maps.
-const _gale = [-6.9, 136.3, -3.9, 139.3];
+/// Gale Crater and its surroundings, for the global base maps. The map centre
+/// may go anywhere over the crater (−7…−3°, 135.8…139.8°); at the lowest zoom
+/// (z7) a desktop screen shows about ±4.5° × ±3° around it, shifted west by
+/// the side panel.
+const _gale = [-10.0, 129.0, 0.0, 144.5];
 
 /// Measured HiRISE coverage of the Curiosity site (see tile_layers.dart).
 const _hirise = [-5.10, 137.10, -4.21, 137.82];
@@ -48,12 +51,18 @@ const layers = [
   }, {}),
   // Overview zooms: the whole mosaic. Close-up zooms (the camera follows the
   // astronaut at z13 while playing): a band of tiles along the route.
-  LayerSpec('curiosity_hirise_mosaic', 'hirise', 'png', {
-    9: _hirise, 10: _hirise, 11: _hirise, //
-  }, {
-    12: [2, 3],
-    13: [2, 4],
-  }),
+  LayerSpec(
+    'curiosity_hirise_mosaic',
+    'hirise',
+    'png',
+    {
+      7: _hirise, 8: _hirise, 9: _hirise, 10: _hirise, 11: _hirise, //
+    },
+    {
+      12: [2, 3],
+      13: [2, 4],
+    },
+  ),
 ];
 
 class Tile {
@@ -107,8 +116,7 @@ Future<void> main(List<String> args) async {
   var totalBytes = 0;
 
   for (final spec in layers) {
-    final tiles = tilesFor(spec, route).toList()
-      ..sort((a, b) => a.key.compareTo(b.key));
+    final tiles = tilesFor(spec, route).toList()..sort((a, b) => a.key.compareTo(b.key));
     final byZoom = <int, int>{};
     for (final t in tiles) {
       byZoom[t.z] = (byZoom[t.z] ?? 0) + 1;
@@ -132,9 +140,10 @@ Future<void> main(List<String> args) async {
       } else if (miss.existsSync()) {
         missing.add(t.key);
       } else {
-        final url = 'https://trek.nasa.gov/tiles/Mars/EQ/${spec.id}/1.0.0/'
+        final url =
+            'https://trek.nasa.gov/tiles/Mars/EQ/${spec.id}/1.0.0/'
             'default/default028mm/${t.z}/${t.y}/${t.x}.${spec.ext}';
-        for (var attempt = 1;; attempt++) {
+        for (var attempt = 1; ; attempt++) {
           try {
             final req = await client.getUrl(Uri.parse(url));
             final res = await req.close().timeout(const Duration(seconds: 90));
@@ -185,8 +194,10 @@ Future<void> main(List<String> args) async {
   if (dryRun) return;
 
   _writeGenerated(generated);
-  stdout.writeln('Bundled ${(totalBytes / 1e6).toStringAsFixed(1)} MB of tiles. '
-      'Wrote $generatedFile');
+  stdout.writeln(
+    'Bundled ${(totalBytes / 1e6).toStringAsFixed(1)} MB of tiles. '
+    'Wrote $generatedFile',
+  );
 }
 
 void _writeGenerated(Map<String, (Set<String>, Set<String>)> data) {
