@@ -26,6 +26,25 @@ an "offline" banner.
 
 API documentation: https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars
 
+### Bundled tiles (fast start)
+
+Mars Trek answers slowly (often 2–15 s per tile), so the tiles for the usual
+views are downloaded once and shipped with the app:
+
+```bash
+dart run tool/download_tiles.dart            # downloads only what is missing
+dart run tool/download_tiles.dart --dry-run  # just count the tiles
+```
+
+- Viking and MOLA: z3–z7 over Gale Crater (20 tiles each).
+- HiRISE: z9–z11 over the whole mosaic, z12–z13 in a band along the route
+  (the camera follows the astronaut at z13 while playing).
+- Snapshot 2026-11-15: 392 images, 19.4 MB in `assets/tiles/`; 80 HiRISE tiles
+  have no image on the server (404) and are drawn transparent without asking.
+- The list lives in the generated `lib/map/bundled_tiles.g.dart`;
+  `test/bundled_tiles_test.dart` checks every listed file exists.
+- Anything not bundled (deeper zoom, CTX, other places) still loads live.
+
 ## 2. Curiosity route (bundled)
 
 - Source: https://mars.nasa.gov/mmgis-maps/MSL/Layers/json/MSL_waypoints.json (NASA/JPL-Caltech, MMGIS)

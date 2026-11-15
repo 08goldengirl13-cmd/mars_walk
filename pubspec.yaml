@@ -14,6 +14,7 @@ dependencies:
   flutter_map: ^8.3.2
   latlong2: ^0.10.1
   url_launcher: ^6.3.3
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +25,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/
+    # NASA Mars Trek tiles around the route (tool/download_tiles.dart).
+    - assets/tiles/viking/
+    - assets/tiles/mola/
+    - assets/tiles/hirise/

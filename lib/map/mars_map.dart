@@ -148,6 +148,11 @@ class _MarsMapState extends State<MarsMap> {
             mapController: _map,
             options: MapOptions(
               crs: const Epsg4326(),
+              // Start on the route even before the bounds fit runs, so the
+              // first tile requests are not for flutter_map's default spot
+              // (Europe), which only queues behind the real tiles.
+              initialCenter: LatLng((r.minLat + r.maxLat) / 2, (r.minLon + r.maxLon) / 2),
+              initialZoom: 12,
               initialCameraFit: CameraFit.bounds(
                 bounds: LatLngBounds(LatLng(r.minLat, r.minLon), LatLng(r.maxLat, r.maxLon)),
                 padding: widget.uiPadding + const EdgeInsets.all(24),
